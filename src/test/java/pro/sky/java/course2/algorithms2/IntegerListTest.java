@@ -7,23 +7,25 @@ import org.junit.jupiter.api.TestInstance;
 import pro.sky.java.course2.algorithms2.exceptions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class StringListTest {
-    private final StringList out = new StringListImp(20);
+public class IntegerListTest {
+    private final IntegerList out = new IntegerListImp(20);
 
     @BeforeAll
     public void initSetup() {
-        out.add("картофель");
-        out.add("помидор");
-        out.add("арахис");
-        out.add("манго");
-        out.add("манго");
+        out.add(16);
+        out.add(100);
+        out.add(51);
+        out.add(32);
+        out.add(4);
+        out.add(51);
+        out.add(33);
     }
 
     @Test
     public void add() {
-        String expected = "груша";
+        Integer expected = 82;
         int beforeSize = out.size();
-        String actual = out.add(expected);
+        Integer actual = out.add(expected);
         int afterSize = out.size();
 
         Assertions.assertEquals(1, afterSize-beforeSize);
@@ -34,9 +36,9 @@ public class StringListTest {
 
     @Test
     public void addByIndex() {
-        String expected = "яблоко";
+        Integer expected = 19;
         int beforeSize = out.size();
-        String actual = out.add(0, expected);
+        Integer actual = out.add(0, expected);
         int afterSize = out.size();
 
         Assertions.assertEquals(1, afterSize-beforeSize);
@@ -47,9 +49,9 @@ public class StringListTest {
 
     @Test
     public void set() {
-        String expected = "персик";
+        Integer expected = 21;
         int beforeSize = out.size();
-        String actual = out.set(0, expected);
+        Integer actual = out.set(0, expected);
         int afterSize = out.size();
 
         Assertions.assertEquals(0, afterSize-beforeSize);
@@ -60,9 +62,9 @@ public class StringListTest {
 
     @Test
     public void removeByElement() {
-        String expected = "картофель";
+        Integer expected = 16;
         int beforeSize = out.size();
-        String actual = out.remove(expected);
+        Integer actual = out.remove(expected);
         int afterSize = out.size();
 
         Assertions.assertEquals(-1, afterSize-beforeSize);
@@ -71,9 +73,9 @@ public class StringListTest {
 
     @Test
     public void removeByIndex() {
-        String expected = out.get(0);
+        Integer expected = out.get(0);
         int beforeSize = out.size();
-        String actual = out.remove(0);
+        Integer actual = out.remove(0);
         int afterSize = out.size();
 
         Assertions.assertEquals(-1, afterSize-beforeSize);
@@ -82,11 +84,11 @@ public class StringListTest {
 
     @Test
     public void contains() {
-        String element = "арахис";
+        Integer element = 33;
         boolean result = out.contains(element);
         Assertions.assertTrue(result);
 
-        element = "пончик";
+        element = 1001;
         result = out.contains(element);
         Assertions.assertFalse(result);
     }
@@ -94,19 +96,19 @@ public class StringListTest {
     @Test
     public void indexOf() {
         int expected = 1;
-        String element = out.get(1);
+        Integer element = out.get(expected);
         Assertions.assertNotNull(expected);
 
         int actual = out.indexOf(element);
         Assertions.assertEquals(expected, actual);
 
-        actual = out.indexOf("пончик");
+        actual = out.indexOf(1001);
         Assertions.assertEquals(-1, actual);
     }
 
     @Test
     public void lastIndexOf() {
-        String element = "манго";
+        Integer element = 51;
 
         int actualIndex = out.indexOf(element);
         int actualLastIndex = out.lastIndexOf(element);
@@ -114,32 +116,32 @@ public class StringListTest {
         Assertions.assertTrue(actualLastIndex>0);
         Assertions.assertNotEquals(actualIndex, actualLastIndex);
 
-        int actual = out.lastIndexOf("пончик");
+        int actual = out.lastIndexOf(1001);
         Assertions.assertEquals(-1, actual);
     }
 
     @Test
     public void equals() {
-        StringList out1 = new StringListImp(10);
-        out1.add("стол");
-        out1.add("комод");
+        IntegerList out1 = new IntegerListImp(10);
+        out1.add(25);
+        out1.add(50);
 
-        StringList out2 = new StringListImp(10);
-        out2.add("стол");
+        IntegerList out2 = new IntegerListImp(10);
+        out2.add(25);
 
         boolean actual = out1.equals(out2);
         Assertions.assertFalse(actual);
 
-        out2.add("комод");
+        out2.add(50);
         actual = out1.equals(out2);
         Assertions.assertTrue(actual);
     }
 
     @Test
     public void clear() {
-        StringList out1 = new StringListImp(10);
-        out1.add("стол");
-        out1.add("комод");
+        IntegerList out1 = new IntegerListImp(10);
+        out1.add(25);
+        out1.add(50);
 
         Assertions.assertTrue(out1.size()>0);
         out1.clear();
@@ -148,28 +150,28 @@ public class StringListTest {
 
     @Test
     public void isEmpty() {
-        StringList out1 = new StringListImp(10);
+        IntegerList out1 = new IntegerListImp(10);
         Assertions.assertTrue(out1.isEmpty());
 
-        out1.add("стол");
-        out1.add("комод");
+        out1.add(25);
+        out1.add(50);
         Assertions.assertFalse(out1.isEmpty());
     }
 
     @Test
     public void toArray() {
-        StringList out1 = new StringListImp(10);
-        out1.add("стол");
-        out1.add("комод");
+        IntegerList out1 = new IntegerListImp(10);
+        out1.add(25);
+        out1.add(50);
 
-        String[] expected = {"стол", "комод"};
-        String[] actual = out1.toArray();
+        Integer[] expected = {25, 50};
+        Integer[] actual = out1.toArray();
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void createStringListException() {
-        Assertions.assertThrows(WrongSizeOfArray.class, () -> new StringListImp(0));
+        Assertions.assertThrows(WrongSizeOfArray.class, () -> new IntegerListImp(0));
     }
 
     @Test
@@ -179,39 +181,62 @@ public class StringListTest {
 
     @Test
     public void addSetException() {
-        StringList out1 = new StringListImp(2);
-        out1.add("стол");
-        out1.add("комод");
+        IntegerList out1 = new IntegerListImp(2);
+        out1.add(25);
+        out1.add(50);
 
-        String element = null;
+        Integer element = null;
         Assertions.assertThrows(InvalidArgument.class, () -> out1.add(element));
-        Assertions.assertThrows(WrongIndex.class, () -> out1.add(out1.size()+1, "стул"));
-        Assertions.assertThrows(ArrayIsFull.class, () -> out1.add("стул"));
+        Assertions.assertThrows(WrongIndex.class, () -> out1.add(out1.size()+1, 100));
+        Assertions.assertThrows(ArrayIsFull.class, () -> out1.add(100));
 
         Assertions.assertThrows(InvalidArgument.class, () -> out1.set(0, element));
-        Assertions.assertThrows(WrongIndex.class, () -> out1.set(-1, "стул"));
+        Assertions.assertThrows(WrongIndex.class, () -> out1.set(-1, 100));
     }
 
     @Test
     public void removeException() {
-        StringList out1 = new StringListImp(2);
-        out1.add("стол");
-        out1.add("комод");
+        IntegerList out1 = new IntegerListImp(2);
+        out1.add(25);
+        out1.add(50);
 
-        String element = null;
+        Integer element = null;
         Assertions.assertThrows(InvalidArgument.class, () -> out1.remove(element));
         Assertions.assertThrows(WrongIndex.class, () -> out1.remove(-1));
-        Assertions.assertThrows(ElementNotFound.class, () -> out1.remove("стул"));
+        Assertions.assertThrows(ElementNotFound.class, () -> out1.remove(Integer.valueOf(100)));
     }
 
     @Test
     public void invalidArgumentException() {
-        String element = null;
-        StringList stringList = null;
+        Integer element = null;
+        IntegerList integerList = null;
         Assertions.assertThrows(InvalidArgument.class, () -> out.contains(element));
         Assertions.assertThrows(InvalidArgument.class, () -> out.indexOf(element));
         Assertions.assertThrows(InvalidArgument.class, () -> out.lastIndexOf(element));
-        Assertions.assertThrows(InvalidArgument.class, () -> out.equals(stringList));
+        Assertions.assertThrows(InvalidArgument.class, () -> out.equals(integerList));
     }
 
+    @Test
+    public void bubbleSort() {
+        Integer[] actual = {45, 3, 33, 5, 67, 32, 21, 89, 103, 2};
+        Integer[] expected = {2, 3, 5, 21, 32, 33, 45, 67, 89, 103};
+        IntegerListImp.testSortAlgorithm(actual, "bubbleSort");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void insertionSort() {
+        Integer[] actual = {45, 3, 33, 5, 67, 32, 21, 89, 103, 2};
+        Integer[] expected = {2, 3, 5, 21, 32, 33, 45, 67, 89, 103};
+        IntegerListImp.testSortAlgorithm(actual, "insertionSort");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void quickSort() {
+        Integer[] actual = {45, 3, 33, 5, 67, 32, 21, 89, 103, 2};
+        Integer[] expected = {2, 3, 5, 21, 32, 33, 45, 67, 89, 103};
+        IntegerListImp.testSortAlgorithm(actual, "quickSort");
+        Assertions.assertArrayEquals(expected, actual);
+    }
 }
